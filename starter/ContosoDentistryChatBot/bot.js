@@ -20,6 +20,7 @@ class DentaBot extends ActivityHandler {
         }
        
         // create a DentistScheduler connector
+        this.DentistScheduler = new DentistScheduler(configuration.SchedulerConfiguration);
       
         // create a IntentRecognizer connector
 
