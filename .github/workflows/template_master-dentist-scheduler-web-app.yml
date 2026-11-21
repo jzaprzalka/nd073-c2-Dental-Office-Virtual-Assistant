@@ -1,9 +1,6 @@
-name: Build and deploy dentist scheduler to Azure Web App
+name: (Template) Build and deploy dentist scheduler to Azure Web App
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
@@ -26,7 +23,8 @@ jobs:
         working-directory: ./starter/ContosoDentistryScheduler
         run: |
           npm ci
-          npm test --if-present
+          npm run build --if-present
+          npm run test --if-present
 
       - name: Upload scheduler artifact
         uses: actions/upload-artifact@v4
