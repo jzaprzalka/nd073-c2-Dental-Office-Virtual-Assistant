@@ -3,7 +3,7 @@
 
 const { ActivityHandler, MessageFactory } = require('botbuilder');
 
-const { QnAMaker } = require('botbuilder-ai');
+const { CustomQuestionAnswering } = require('botbuilder-ai');
 const DentistScheduler = require('./dentistscheduler');
 const IntentRecognizer = require("./intentrecognizer")
 
@@ -13,10 +13,12 @@ class DentaBot extends ActivityHandler {
         super();
         if (!configuration) throw new Error('[QnaMakerBot]: Missing parameter. configuration is required');
 
-        // TMP: Create the QnA Maker connector only when it has been configured.
+        // Create the Question Answering connector only when it has been configured.
         const qna = configuration.QnAConfiguration;
         if (qna && qna.knowledgeBaseId && qna.endpointKey && qna.host) {
-            this.QnAMaker = new QnAMaker(qna);
+            this.QnAMaker = new CustomQuestionAnswering(qna, qnaOptions);
+        } else {
+            throw new Error('[QnaMakerBot]: QnA Maker (Custom Question Answering) is not configured.');
         }
        
         // create a DentistScheduler connector
@@ -28,6 +30,8 @@ class DentaBot extends ActivityHandler {
         this.onMessage(async (context, next) => {
             // send user input to QnA Maker and collect the response in a variable
             // don't forget to use the 'await' keyword
+            const response = await this.QnAMaker.getAnswers(context);
+            console.log("QnA Maker response: ", response);
           
             // send user input to IntentRecognizer and collect the response in a variable
             // don't forget 'await'
