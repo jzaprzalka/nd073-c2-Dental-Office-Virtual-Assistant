@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const { ActivityHandler, MessageFactory } = require('botbuilder');
+import { ActivityHandler, MessageFactory } from 'botbuilder';
 
-const { CustomQuestionAnswering } = require('botbuilder-ai');
-const DentistScheduler = require('./dentistscheduler');
-const IntentRecognizer = require("./intentrecognizer").default
+import { CustomQuestionAnswering } from 'botbuilder-ai';
+import DentistScheduler from './dentistscheduler.js';
+import IntentRecognizer from './intentrecognizer.js';
 
 class DentaBot extends ActivityHandler {
     constructor(configuration, qnaOptions) {
@@ -77,4 +77,5 @@ class DentaBot extends ActivityHandler {
     }
 }
 
-module.exports.DentaBot = DentaBot;
+const _DentaBot = DentaBot;
+export { _DentaBot as DentaBot };

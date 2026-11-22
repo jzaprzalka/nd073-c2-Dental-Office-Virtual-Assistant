@@ -19,4 +19,4 @@ ${time}`
     }
 }
 
-module.exports = DentistScheduler
+export default DentistScheduler

@@ -1,36 +1,37 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const path = require('path');
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
-const dotenv = require('dotenv');
+import { config } from 'dotenv';
 // Import required bot configuration.
-const ENV_FILE = path.join(__dirname, '.env');
-dotenv.config({ path: ENV_FILE });
+const ENV_FILE = join(dirname(fileURLToPath(import.meta.url)), '.env');
+config({ path: ENV_FILE });
 
-const restify = require('restify');
+import { createServer, plugins } from 'restify';
 
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
-const { BotFrameworkAdapter } = require('botbuilder');
+import { CloudAdapter, ConfigurationBotFrameworkAuthentication } from 'botbuilder';
 
 // This bot's main dialog.
-const { DentaBot } = require('./bot');
+import { DentaBot } from './bot.js';
 
 // Create HTTP server
-const server = restify.createServer();
+const server = createServer();
+server.use(plugins.bodyParser());
+
 server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${server.name} listening to ${server.url}`);
     console.log('\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator');
     console.log('\nTo talk to your bot, open the emulator select "Open Bot"');
 });
 
-// Create adapter.
-// See https://aka.ms/about-bot-adapter to learn more about how bots work.
-const adapter = new BotFrameworkAdapter({
-    appId: process.env.MicrosoftAppId,
-    appPassword: process.env.MicrosoftAppPassword
-});
+// Create the Bot Framework authentication and CloudAdapter.
+const botFrameworkAuthentication =
+    new ConfigurationBotFrameworkAuthentication(process.env);
+const adapter = new CloudAdapter(botFrameworkAuthentication);
 
 // Catch-all for errors.
 const onTurnErrorHandler = async (context, error) => {
@@ -52,7 +53,7 @@ const onTurnErrorHandler = async (context, error) => {
     await context.sendActivity('To continue to run this bot, please fix the bot source code.');
 };
 
-// Set the onTurnError for the singleton BotFrameworkAdapter.
+// Set the onTurnError for the singleton CloudAdapter.
 adapter.onTurnError = onTurnErrorHandler;
 
 // Map configuration values values from .env file into the required format for each service.
@@ -84,25 +85,7 @@ const myBot = new DentaBot(configuration, {});
 
 // Listen for incoming requests.
 server.post('/api/messages', async (req, res) => {
-    adapter.processActivity(req, res, async (context) => {
-        // Route to main dialog.
-        await myBot.run(context);
-    });
-});
-
-// Listen for Upgrade requests for Streaming.
-server.on('upgrade', (req, socket, head) => {
-    // Create an adapter scoped to this WebSocket connection to allow storing session data.
-    const streamingAdapter = new BotFrameworkAdapter({
-        appId: process.env.MicrosoftAppId,
-        appPassword: process.env.MicrosoftAppPassword
-    });
-    // Set onTurnError for the BotFrameworkAdapter created for each connection.
-    streamingAdapter.onTurnError = onTurnErrorHandler;
-
-    streamingAdapter.useWebSocket(req, socket, head, async (context) => {
-        // After connecting via WebSocket, run this logic for every request sent over
-        // the WebSocket connection.
+    await adapter.process(req, res, async (context) => {
         await myBot.run(context);
     });
 });
