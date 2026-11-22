@@ -62,10 +62,11 @@ const QnAConfiguration = {
     host: process.env.LanguageEndpointHostName
 };
 
-const LuisConfiguration = {
-    applicationId: process.env.LuisAppId,
-    endpointKey: process.env.LuisAPIKey,
-    endpoint: process.env.LuisAPIHostName,
+const CluConfiguration = {
+    projectName: process.env.CluProjectName,
+    deploymentName: process.env.CluDeploymentName,
+    apiKey: process.env.CluAPIKey,
+    endpoint: process.env.CluAPIHostName
 }
 
 const SchedulerConfiguration = {
@@ -74,7 +75,7 @@ const SchedulerConfiguration = {
 //pack each service configuration into 
 const configuration = {
     QnAConfiguration,
-    LuisConfiguration,
+    CluConfiguration,
     SchedulerConfiguration
 }
 

@@ -1,42 +1,81 @@
-const {LuisRecognizer} = require('botbuilder-ai')
-
 class IntentRecognizer {
     constructor(config) {
-        const luisIsConfigured = config && config.applicationId && config.endpointKey && config.endpoint;
-        if (luisIsConfigured) {
-            // Set the recognizer options depending on which endpoint version you want to use e.g v2 or v3.
-            // More details can be found in https://docs.microsoft.com/en-gb/azure/cognitive-services/luis/luis-migration-api-v3
-            const recognizerOptions = {
-                apiVersion: 'v3'
-            };
+        this.projectName = config && config.projectName;
+        this.deploymentName = config && config.deploymentName;
+        this.apiKey = config && config.apiKey;
+        this.endpoint = config && config.endpoint;
+        this.configured = Boolean(
+            this.projectName &&
+            this.deploymentName &&
+            this.apiKey &&
+            this.endpoint
+        );
+        if (!this.configured)
+            throw new Error('[IntentRecognizer]: Missing parameter. Intent Recognizer is not configured.');
+    }
 
-            this.recognizer = new LuisRecognizer(config, recognizerOptions);
+    async executeCluQuery(context) {
+        const endpoint = this.endpoint.replace(/\/$/, '');
+        const response = await fetch(
+            `${endpoint}/language/:analyze-conversations?api-version=2023-04-01`,
+            {
+                method: 'POST',
+                headers: {
+                    'Ocp-Apim-Subscription-Key': this.apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    kind: 'Conversation',
+                    analysisInput: {
+                        conversationItem: {
+                            id: '1',
+                            text: context.activity.text,
+                            modality: 'text',
+                            language: 'en',
+                            participantId: 'user'
+                        }
+                    },
+                    parameters: {
+                        projectName: this.projectName,
+                        deploymentName: this.deploymentName,
+                        stringIndexType: 'Utf16CodeUnit',
+                        verbose: true
+                    }
+                })
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`CLU request failed with status ${response.status}`);
         }
+
+        const data = await response.json();
+        return data.result && data.result.prediction
+            ? data.result.prediction
+            : undefined;
     }
 
-    get isConfigured() {
-        return (this.recognizer !== undefined);
+    getTopIntent(result) {
+        return result && result.topIntent ? result.topIntent : undefined;
     }
 
-    /**
-     * Returns an object with preformatted LUIS results for the bot's dialogs to consume.
-     * @param {TurnContext} context
-     */
-    async executeLuisQuery(context) {
-        return await this.recognizer.recognize(context);
+    getIntentScore(result, intent) {
+        if (!result || !Array.isArray(result.intents)) return 0;
+        const match = result.intents.find(item => item.category === intent);
+        return match ? match.confidenceScore : 0;
     }
 
- 
     getTimeEntity(result) {
-        const datetimeEntity = result.entities.datetime;
-        if (!datetimeEntity || !datetimeEntity[0]) return undefined;
+        if (!result || !Array.isArray(result.entities)) return undefined;
 
-        const timex = datetimeEntity[0].timex;
-        if (!timex || !timex[0]) return undefined;
+        const datetimeEntity = result.entities.find(entity =>
+            entity.category === 'appointmentDateTime' ||
+            entity.category === 'datetime' ||
+            entity.category === 'DateTime'
+        );
 
-        const datetime = timex[0]
-        return datetime;
+        return datetimeEntity ? datetimeEntity.text : undefined;
     }
 }
 
-module.exports = IntentRecognizer
+export default IntentRecognizer;

@@ -5,7 +5,7 @@ const { ActivityHandler, MessageFactory } = require('botbuilder');
 
 const { CustomQuestionAnswering } = require('botbuilder-ai');
 const DentistScheduler = require('./dentistscheduler');
-const IntentRecognizer = require("./intentrecognizer")
+const IntentRecognizer = require("./intentrecognizer").default
 
 class DentaBot extends ActivityHandler {
     constructor(configuration, qnaOptions) {
@@ -24,43 +24,56 @@ class DentaBot extends ActivityHandler {
         // create a DentistScheduler connector
         this.DentistScheduler = new DentistScheduler(configuration.SchedulerConfiguration);
       
-        // create a IntentRecognizer connector
+        // Create an IntentRecognizer connector for CLU.
+        this.IntentRecognizer = new IntentRecognizer(configuration.CluConfiguration);
 
 
         this.onMessage(async (context, next) => {
             // send user input to QnA Maker and collect the response in a variable
-            // don't forget to use the 'await' keyword
-            const response = await this.QnAMaker.getAnswers(context);
-            console.log("QnA Maker response: ", response);
+            const qnaResponse = await this.QnAMaker.getAnswers(context);
+            console.log("QnA Maker response: ", qnaResponse);
           
-            // send user input to IntentRecognizer and collect the response in a variable
-            // don't forget 'await'
-                     
-            // determine which service to respond with based on the results from LUIS //
+            // Send user input to CLU and use the top intent for scheduling decisions.
+            const cluResult =  await this.IntentRecognizer.executeCluQuery(context);
+            console.log("CLU result: ", cluResult);
 
-            // if(top intent is intentA and confidence greater than 50){
-            //  doSomething();
-            //  await context.sendActivity();
-            //  await next();
-            //  return;
-            // }
-            // else {...}
+            const topIntent = this.IntentRecognizer.getTopIntent(cluResult);
+            const intentScore = this.IntentRecognizer.getIntentScore(cluResult, topIntent);
+
+            if (topIntent === 'CreateGetAvailability' && intentScore > 0.5) {
+                await context.sendActivity(await this.DentistScheduler.getAvailability());
+            } else if (topIntent === 'ScheduleAppointment' && intentScore > 0.5) {
+                const time = this.IntentRecognizer.getTimeEntity(cluResult);
+                if (time) {
+                    await context.sendActivity(await this.DentistScheduler.scheduleAppointment(time));
+                } else {
+                    await context.sendActivity('What date and time would you like for your appointment?');
+                }
+            }
+            // Fall back to Custom Question Answering.
+            else if (qnaResponse && qnaResponse.length > 0) {
+                await context.sendActivity(qnaResponse[0].answer);
+            } else {
+                await context.sendActivity(
+                    'Sorry, I did not understand that. Please ask about office FAQs or appointment scheduling.'
+                );
+            }
              
             await next();
-    });
+        });
 
         this.onMembersAdded(async (context, next) => {
-        const membersAdded = context.activity.membersAdded;
-        //write a custom greeting
-        const welcomeText = 'Hello and welcome to the dentistry Bot. My name is Bot. How May I assist You? Want to schedule a visit? Want to know more about the clinic?';
-        for (let cnt = 0; cnt < membersAdded.length; ++cnt) {
-            if (membersAdded[cnt].id !== context.activity.recipient.id) {
-                await context.sendActivity(MessageFactory.text(welcomeText, welcomeText));
+            const membersAdded = context.activity.membersAdded;
+            //write a custom greeting
+            const welcomeText = 'Hello and welcome to the dentistry Bot. My name is Bot. How May I assist You? Want to schedule a visit? Want to know more about the clinic?';
+            for (let cnt = 0; cnt < membersAdded.length; ++cnt) {
+                if (membersAdded[cnt].id !== context.activity.recipient.id) {
+                    await context.sendActivity(MessageFactory.text(welcomeText, welcomeText));
+                }
             }
-        }
-        // by calling next() you ensure that the next BotHandler is run.
-        await next();
-    });
+            // by calling next() you ensure that the next BotHandler is run.
+            await next();
+        });
     }
 }
 
