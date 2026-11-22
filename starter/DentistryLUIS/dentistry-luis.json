@@ -1,0 +1,548 @@
+{
+    "projectFileVersion": "2025-05-15-preview",
+    "stringIndexType": "Utf16CodeUnit",
+    "metadata": {
+        "projectKind": "Conversation",
+        "settings": {
+            "confidenceThreshold": 0,
+            "normalizeCasing": false,
+            "augmentDiacritics": false
+        },
+        "projectName": "dentistry-luis",
+        "multilingual": false,
+        "description": "",
+        "language": "en-us"
+    },
+    "assets": {
+        "projectKind": "Conversation",
+        "intents": [
+            {
+                "category": "None",
+                "description": "Used when the user's input doesn't match any known intent or is out of scope."
+            },
+            {
+                "category": "CreateGetAvailability"
+            },
+            {
+                "category": "ScheduleAppointment"
+            }
+        ],
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "compositionSetting": "combineComponents"
+            }
+        ],
+        "utterances": [
+            {
+                "text": "Let's make it Friday 3pm then.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 14,
+                        "length": 6
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 21,
+                        "length": 3
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "I'd like to schedule it for Wednesday",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 28,
+                        "length": 9
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "Reserve me a slot for 3 o'clock on Monday.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 22,
+                        "length": 9
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 32,
+                        "length": 9
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "I want to finish by 12 tomorrow.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 17,
+                        "length": 5
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 23,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "Book me a visit then",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [],
+                "dataset": "Test"
+            },
+            {
+                "text": "Are you free on Tuesday?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 16,
+                        "length": 7
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "Is anything available tomorrow?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 22,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "Find me an appintment for tomorrow",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 26,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Test"
+            },
+            {
+                "text": "When is the soonest I could come?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Test"
+            },
+            {
+                "text": "Do you have anything available?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Test"
+            },
+            {
+                "text": "What appointments are available?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Show me available appointment times.",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Do you have openings this week?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 21,
+                        "length": 9
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Are there any slots available tomorrow?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 30,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "What times can I come in today?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 25,
+                        "length": 5
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I would like to see available appointments.",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "When is the dentist available?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Check my available appointment options.",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can I get an appointment this Friday?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 25,
+                        "length": 11
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "What appointments do you have on Monday?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 33,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Find a time for me to visit the dentist.",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Is 10am available tomorrow?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 3,
+                        "length": 4
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 18,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "What slots are open next week?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 20,
+                        "length": 9
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can you list the earliest appointments?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Are you available at 2pm this Thursday?",
+                "language": "en-us",
+                "intent": "CreateGetAvailability",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 21,
+                        "length": 3
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 25,
+                        "length": 13
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Schedule an appointment for tomorrow at 10am.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 28,
+                        "length": 8
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 40,
+                        "length": 4
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I want to book an appointment at 2pm.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 33,
+                        "length": 3
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Schedule me for Monday at 9am.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 16,
+                        "length": 6
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 26,
+                        "length": 3
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I need a dental appointment next Friday.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 28,
+                        "length": 11
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can you book me for 11am tomorrow?",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 20,
+                        "length": 4
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 25,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Make an appointment for Tuesday afternoon.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 24,
+                        "length": 17
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Reserve 3pm on Thursday for me.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 8,
+                        "length": 3
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 15,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I would like to schedule a visit on Wednesday.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 36,
+                        "length": 9
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Book the first appointment available.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Please schedule a dental cleaning next week.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 34,
+                        "length": 9
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Set an appointment for 8am tomorrow.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 23,
+                        "length": 3
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 27,
+                        "length": 8
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I need to see the dentist on Monday.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 29,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Schedule me for this Friday at noon.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 16,
+                        "length": 11
+                    },
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 31,
+                        "length": 4
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can I book an appointment for 1pm?",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 30,
+                        "length": 3
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Reserve a time for me next Thursday.",
+                "language": "en-us",
+                "intent": "ScheduleAppointment",
+                "entities": [
+                    {
+                        "category": "appointmentDateTime",
+                        "offset": 22,
+                        "length": 13
+                    }
+                ],
+                "dataset": "Train"
+            }
+        ]
+    }
+}

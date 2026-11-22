@@ -1,0 +1,354 @@
+[
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "What appointments are available?",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Show me available appointment times.",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Do you have openings this week?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 21,
+                "length": 9
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Are there any slots available tomorrow?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 30,
+                "length": 8
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "What times can I come in today?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 25,
+                "length": 5
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "I would like to see available appointments.",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "When is the dentist available?",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Check my available appointment options.",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Can I get an appointment this Friday?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 25,
+                "length": 11
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "What appointments do you have on Monday?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 33,
+                "length": 6
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Find a time for me to visit the dentist.",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Is 10am available tomorrow?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 3,
+                "length": 4
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 18,
+                "length": 8
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "What slots are open next week?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 20,
+                "length": 9
+            }
+        ]
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Can you list the earliest appointments?",
+        "entities": []
+    },
+    {
+        "intent": "CreateGetAvailability",
+        "language": "en-us",
+        "text": "Are you available at 2pm this Thursday?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 21,
+                "length": 3
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 25,
+                "length": 13
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Schedule an appointment for tomorrow at 10am.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 28,
+                "length": 8
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 40,
+                "length": 4
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "I want to book an appointment at 2pm.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 33,
+                "length": 3
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Schedule me for Monday at 9am.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 16,
+                "length": 6
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 26,
+                "length": 3
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "I need a dental appointment next Friday.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 28,
+                "length": 11
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Can you book me for 11am tomorrow?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 20,
+                "length": 4
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 25,
+                "length": 8
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Make an appointment for Tuesday afternoon.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 24,
+                "length": 17
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Reserve 3pm on Thursday for me.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 8,
+                "length": 3
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 15,
+                "length": 8
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "I would like to schedule a visit on Wednesday.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 36,
+                "length": 9
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Book the first appointment available.",
+        "entities": []
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Please schedule a dental cleaning next week.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 34,
+                "length": 9
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Set an appointment for 8am tomorrow.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 23,
+                "length": 3
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 27,
+                "length": 8
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "I need to see the dentist on Monday.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 29,
+                "length": 6
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Schedule me for this Friday at noon.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 16,
+                "length": 11
+            },
+            {
+                "category": "appointmentDateTime",
+                "offset": 31,
+                "length": 4
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Can I book an appointment for 1pm?",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 30,
+                "length": 3
+            }
+        ]
+    },
+    {
+        "intent": "ScheduleAppointment",
+        "language": "en-us",
+        "text": "Reserve a time for me next Thursday.",
+        "entities": [
+            {
+                "category": "appointmentDateTime",
+                "offset": 22,
+                "length": 13
+            }
+        ]
+    }
+]
