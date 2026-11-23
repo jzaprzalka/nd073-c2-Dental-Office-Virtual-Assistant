@@ -32,6 +32,7 @@ class DentaBot extends ActivityHandler {
             // send user input to QnA Maker and collect the response in a variable
             const qnaResponse = await this.QnAMaker.getAnswers(context);
             console.log("QnA Maker response: ", qnaResponse);
+            const limit = qnaResponse?.at(0)?.score || 0.5;
           
             // Send user input to CLU and use the top intent for scheduling decisions.
             const cluResult =  await this.IntentRecognizer.executeCluQuery(context);
@@ -40,9 +41,9 @@ class DentaBot extends ActivityHandler {
             const topIntent = this.IntentRecognizer.getTopIntent(cluResult);
             const intentScore = this.IntentRecognizer.getIntentScore(cluResult, topIntent);
 
-            if (topIntent === 'CreateGetAvailability' && intentScore > 0.5) {
+            if (topIntent === 'CreateGetAvailability' && intentScore > limit) {
                 await context.sendActivity(await this.DentistScheduler.getAvailability());
-            } else if (topIntent === 'ScheduleAppointment' && intentScore > 0.5) {
+            } else if (topIntent === 'ScheduleAppointment' && intentScore > limit) {
                 const time = this.IntentRecognizer.getTimeEntity(cluResult);
                 if (time) {
                     await context.sendActivity(await this.DentistScheduler.scheduleAppointment(time));
